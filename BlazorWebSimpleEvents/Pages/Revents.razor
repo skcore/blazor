@@ -1,0 +1,21 @@
+﻿@page "/radio"
+<PageTitle>Radio-Events</PageTitle>
+
+<h3>Input type radio button events</h3>
+
+@*Radio button*@
+<label>Select Course:</label>
+<input type="radio" name="blazor" value="C#" @onchange="radioButtonOnchange" />C#
+<input type="radio" name="blazor" value="SQL" @onchange="radioButtonOnchange" />SQL
+<input type="radio" name="blazor" value="ASP.NET" @onchange="radioButtonOnchange" />ASP.NET
+<p>@radioButtonSelectedvalue</p>
+
+@code {
+
+    private string radioButtonSelectedvalue = string.Empty;
+    private void radioButtonOnchange(ChangeEventArgs e)
+    {
+        radioButtonSelectedvalue = $"You have selected {Convert.ToString(e.Value)} course";
+    }
+
+}

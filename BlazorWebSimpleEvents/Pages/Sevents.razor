@@ -1,0 +1,58 @@
+﻿@page "/select"
+<PageTitle>Select-Events</PageTitle>
+
+<h3>Input type select events</h3>
+
+@*Dropdown selected change event*@
+<select @onchange="SetSelectedValue1">
+    <option>Asp.net</option>
+    <option>Ado.net</option>
+    <option>C#</option>
+    <option>Blazor</option>
+</select>
+<p>@ddlSelectedvalue1</p>
+
+
+@*Bind data to input two-way*@
+@*Dropdown selected change event and default selection*@
+<select @onchange="SetSelectedValue2" value="@ddlSelectedvalue2">
+    <option>Asp.net</option>
+    <option>Ado.net</option>
+    <option>C#</option>
+    <option>Blazor</option>
+</select>
+<p>@ddlSelectedvalue2</p>
+
+
+@*bind property also works as two way data binding same as above*@
+@*Instead of value we take @bind*@
+@*hander method as it is not needed anymore*@
+<select @bind="ddlSelectedvalue3">
+    <option>Asp.net</option>
+    <option>Ado.net</option>
+    <option>C#</option>
+    <option>Blazor</option>
+</select>
+<p>@ddlSelectedvalue3</p>
+
+@*By default, the onchange event is used in bindings. This means when you apply @bind
+attribute to an input type text element then the bindings will work only when the input element loses focus.*@
+
+
+@code {
+
+    private string ddlSelectedvalue1 = "asp.net blazor events course";
+    private string ddlSelectedvalue2 = "(two-way binding)asp.net blazor events course";
+    private string ddlSelectedvalue3 = "Binding data with @bind";
+
+    private void SetSelectedValue1(ChangeEventArgs e)
+    {
+        ddlSelectedvalue1 = Convert.ToString(e.Value);
+    }
+
+    private void SetSelectedValue2(ChangeEventArgs e)
+    {
+        ddlSelectedvalue2 = Convert.ToString(e.Value);
+    }
+
+}

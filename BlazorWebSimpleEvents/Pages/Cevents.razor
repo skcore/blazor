@@ -1,0 +1,21 @@
+﻿@page "/checkbox"
+<PageTitle>Checkbox-Events</PageTitle>
+
+<h3>Input type checkbox events</h3>
+
+<span>Blazor</span>
+<input type="checkbox" @onchange="checkboxOnchange" />
+<p>@msg</p>
+
+@code {
+
+    private bool checkboxSelectedvalue = false;
+    private string msg = string.Empty;
+
+    private void checkboxOnchange(ChangeEventArgs e)
+    {
+        checkboxSelectedvalue = Convert.ToBoolean(e.Value);
+
+        msg = (checkboxSelectedvalue) ? "You have selected BLAZOR course" : "Nothing has been selected";
+    }
+}

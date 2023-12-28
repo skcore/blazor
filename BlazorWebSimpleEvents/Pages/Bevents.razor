@@ -1,0 +1,27 @@
+﻿@page "/button"
+
+<PageTitle>Button-Events</PageTitle>
+<h3>Input type button events</h3>
+
+<button class="btn btn-primary" @onclick="@(() => msg="Hello")">Show Message</button>
+<p>@msg</p>
+
+@*Prevent redirection on form submit button*@
+<form>
+    <button class="btn btn-primary" @onclick:preventDefault="true" @onclick="preventSumbit">Form Submit</button>
+    <p>@preventMsg</p>
+</form>
+
+
+
+
+@code {
+
+    private string msg = string.Empty;
+    private string preventMsg = string.Empty;
+
+    private void preventSumbit(MouseEventArgs e)
+    {
+        preventMsg = "Preventing loading for form submit button (!IsPostback)";
+    }
+}

@@ -1,0 +1,64 @@
+﻿@page "/textbox"
+@using System.Globalization
+
+<PageTitle>Textbox-Events</PageTitle>
+
+<h3>Input type textbox events</h3>
+
+@*Onchange events on Input type = text *@
+<input @onchange="SetName" type="text" class="form-control" />
+<h3>@InputValue</h3>
+
+@*Same method for two textboxes*@
+<input @onchange="@(e=>SetValue(e,null))" type="text" class="form-control" />
+<input @onchange="@(e=>SetValue(null,e))" type="text" class="form-control" />
+<p>@SetFullName</p>
+
+@*onchange pass data*@
+<input @onchange="@(e=>PassInput("TEST MESSAGE"))" type="text" class="form-control" />
+<p>@setLamdavalue</p>
+
+
+@*Bind data to input one-way*@
+<input type="text" value="@samplebindData" />
+
+@*Showing DateTime with Culture specific and Formatted values in Blazor*@
+
+<input type="text" class="form-control" @bind="DOB" @bind:format="yyyy-MM-dd" />
+<input type="text" class="form-control" @bind="ShowDateTime" @bind:format="MMM-dd" @bind:culture="CultureGB" />
+<input type="text" class="form-control" @bind="ShowDateTime" @bind:format="MMM-dd" @bind:culture="CultureFR" />
+
+
+@code {
+
+    private string InputValue = string.Empty;
+    private void SetName(ChangeEventArgs e)
+    {
+        InputValue = Convert.ToString(e.Value);
+    }
+
+    private string SetFullName = string.Empty;
+    private void SetValue(ChangeEventArgs e1, ChangeEventArgs e2)
+    {
+        if (e1 is not null)
+            SetFullName = Convert.ToString(e1.Value);
+
+        if (e2 is not null)
+            SetFullName = Convert.ToString(e2.Value);
+    }
+
+    private string setLamdavalue = string.Empty;
+    private void PassInput(string log)
+    {
+        setLamdavalue = log;
+    }
+
+
+    private string samplebindData = "Welcome to Asp.net blazor course";
+
+    private DateTime DOB = new DateTime(2023, 12, 17);
+
+    public DateTime ShowDateTime { get; set; } = DateTime.Parse("2023/12/17 07:20");
+    public CultureInfo CultureFR { get; set; } = CultureInfo.GetCultureInfo("fr-FR");
+    public CultureInfo CultureGB { get; set; } = CultureInfo.GetCultureInfo("en-gb");
+}
