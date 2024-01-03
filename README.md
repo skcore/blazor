@@ -3,13 +3,13 @@ The Blazor sample Web client application created in Dotnet 8 is used to demonstr
 
 **Bevents** page for the onclick events for the button
 
-**Cevents** page for the onclick events for the checkbox
+**Cevents** page for the onchange events for the checkbox
 
-**Revents** page for the onclick events for the radio button
+**Revents** page for the onchange events for the radio button
 
-**Tevents** page for the onclick events for the textbox
+**Tevents** page for the onchange events for the textbox
 
-**Sevents** page for the onclick events for the select
+**Sevents** page for the onchange events for the select
 
 >Additionally, datetime was included to text controls using formatted values and culture-specific values.
 
