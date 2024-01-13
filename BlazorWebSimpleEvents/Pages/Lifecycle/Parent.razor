@@ -1,0 +1,53 @@
+﻿@page "/parent "
+
+<h3>Parent</h3>
+
+@if (parentInfo == null)
+{
+    <h2 class="bg-warning text-white p-3">Loading..</h2>
+
+}
+else
+{
+    <table class="table table-sm table-bordered table-striped ">
+        <thead>
+            <tr>
+                <th>ParentName</th>
+                <th>ChildName</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@parentInfo.ParentName</td>
+                <td>@parentInfo.ChildName</td>
+            </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+
+    public class Parentclass
+    {
+        public string ParentName { get; set; }
+        public string ChildName { get; set; }
+    }
+
+    [Parameter]
+    public string Name { get; set; }
+
+    public Parentclass parentInfo { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+
+        List<Parentclass> p = new List<Parentclass> {
+            new Parentclass { ParentName = "Bob1", ChildName = "Jack1" },
+                 new Parentclass { ParentName = "Bob2", ChildName = "Jack2" },
+                      new Parentclass { ParentName = "Bob3", ChildName = "Jack3" },
+                           new Parentclass { ParentName = "Bob4", ChildName = "Jack4" }
+        };
+
+        parentInfo = p.Where(a => a.ChildName == Name).FirstOrDefault();
+    }
+}

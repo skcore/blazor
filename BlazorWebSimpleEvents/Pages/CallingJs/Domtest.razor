@@ -1,0 +1,40 @@
+﻿@page "/domtest"
+@using Microsoft.JSInterop
+@inject IJSRuntime JS;
+
+<h1 class="bg-info text-white">Call JavaScript from Blazor</h1>
+
+<div class="form-group">
+    <table class="table table-sm table-bordered table-striped ">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody @ref="RowReference">
+            <tr>
+                <td>Jack Sparrow</td>
+                <td>New York</td>
+            </tr>
+            <tr>
+                <td>Bruce Wayne</td>
+                <td>Gotham</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="m-2 btn btn-secondary" @onclick="AddRow">Add a new Row</button>
+</div>
+
+@code {
+    public ElementReference RowReference { get; set; }
+
+    public async void AddRow()
+    {
+        await JS.InvokeVoidAsync("AddTableRow", RowReference, "Clark Kent", "Metropolis");
+    }
+}
+
+<script src="_framework/blazor.server.js"></script>
+<script src="JS/test.js"></script>
+

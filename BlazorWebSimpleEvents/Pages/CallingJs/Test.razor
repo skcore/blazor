@@ -1,0 +1,19 @@
+﻿@page "/testjs"
+@using Microsoft.JSInterop;
+@inject IJSRuntime JS;
+
+<h3>Calling JS method</h3>
+
+<div class="form-group">
+    <button class="btn btn-secondary" @onclick="ShowAlert">Show JavaScript Alert</button>
+</div>
+
+@code {
+    public async void ShowAlert()
+    {
+        await JS.InvokeVoidAsync("JSAlert");
+    }
+}
+
+<script src="_framework/blazor.server.js"></script>
+<script src="JS/test.js"></script>
