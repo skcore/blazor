@@ -11,9 +11,20 @@ namespace BlazorServerCrud.Services
         {
             this.covidRepository = covidRepository;
         }
+
+        public bool Deletelogs(int logId)
+        {
+          return covidRepository.Deletelogs(logId);
+        }
+
         public List<CovidLog> GetcovidLogs()
         {
             return covidRepository.GetcovidLogs();
+        }
+
+        public bool Savelogs(CovidLog log)
+        {
+            return covidRepository.Savelogs(log);
         }
     }
 }

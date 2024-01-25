@@ -1,0 +1,51 @@
+﻿@page "/addlog"
+@using BlazorWebCrud.Models
+@using BlazorWebCrud.Services
+
+@inject ICovidService covidService
+@inject NavigationManager navigationManager
+
+<h3>Add Covid log</h3>
+
+
+<div>
+
+    <h4>@msg</h4>
+
+    <EditForm Model="covidLog" OnValidSubmit="Savelogs" OnInvalidSubmit="HandleInvalidSubmit">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <label>Name</label>
+        <InputText @bind-Value="@covidLog.Name" />
+
+        <label>Message</label>
+        <InputText @bind-Value="@covidLog.Covidlogmsg" />
+
+        <button type="submit">Save</button>
+        <button @onclick="Cancel">Cancel</button>
+
+    </EditForm>
+
+</div>
+
+@code {
+    CovidLog covidLog { get; set; } = new CovidLog();
+
+    string msg = string.Empty;
+
+    void Savelogs()
+    {
+        if (covidService.Savelogs(covidLog))
+            msg = "Logs saved successfully";
+        else
+            msg = "Something went wrong !!";
+    }
+    public void HandleInvalidSubmit() => msg = "Wrong data!!";
+
+    void Cancel()
+    {
+        navigationManager.NavigateTo("/covid");
+    }
+}

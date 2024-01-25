@@ -1,9 +1,12 @@
 ﻿@page "/covid"
+@page "/"
+
 @using BlazorWebCrud.Models
 @using BlazorWebCrud.Services
 @using Microsoft.AspNetCore.Components.QuickGrid
 
 @inject ICovidService covidservice
+@inject NavigationManager navigationManager
 
 <style>
 
@@ -57,6 +60,10 @@
 <h1>Covid logs</h1>
 
 <p>This component demonstrates fetching data from a service and showing in Quick grid</p>
+
+<a @onclick="Addlogs">Please click here to add COVID LOGS</a>
+
+<br />
 
 @if (covidlogs == null)
 {
@@ -124,4 +131,10 @@ else
 
     private string? AriaCurrentValue(int pageIndex)
         => pagination.CurrentPageIndex == pageIndex ? "page" : null;
+
+
+    protected void Addlogs()
+    {
+        navigationManager.NavigateTo("/addlog");
+    }
 }

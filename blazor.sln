@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebSimpleEvents", "BlazorWebSimpleEvents\BlazorWebSimpleEvents.csproj", "{B8AFE8A7-5272-482B-8D94-BB30EC0C118C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebCrud", "BlazorWebCrud\BlazorWebCrud.csproj", "{53446DD6-714A-4705-B55E-90D185ED31CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebCrud", "BlazorWebCrud\BlazorWebCrud.csproj", "{53446DD6-714A-4705-B55E-90D185ED31CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
