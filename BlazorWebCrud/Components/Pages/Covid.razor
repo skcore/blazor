@@ -1,0 +1,127 @@
+﻿@page "/covid"
+@using BlazorWebCrud.Models
+@using BlazorWebCrud.Services
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+@inject ICovidService covidservice
+
+<style>
+
+    ::deep th.country-name {
+        width: 14rem;
+    }
+
+    /* Subtle stripe effect */
+    ::deep tr:nth-child(even) {
+        background: rgba(255,255,255,0.4);
+    }
+
+    /* Don't collapse rows even if they are empty */
+    ::deep tbody tr {
+        height: 1.8rem;
+    }
+
+    /* Style the custom page links*/
+    .page-buttons {
+        margin: 1rem 0;
+        align-items: center;
+    }
+
+        .page-buttons button {
+            background: #d6d7d8;
+            color: black;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.4rem;
+            transition: transform 0.3s ease-out;
+            margin: 0.25rem;
+        }
+
+            .page-buttons button:active {
+                background: #a7c1ff !important;
+                color: white;
+                transform: scale(0.95) translateY(-0.15rem);
+                transition-duration: 0.05s;
+            }
+
+            .page-buttons button:hover:not(.current) {
+                background: #c0c9dc;
+            }
+
+            .page-buttons button.current {
+                background: #3771f4;
+                color: white;
+            }
+
+</style>
+
+<h1>Covid logs</h1>
+
+<p>This component demonstrates fetching data from a service and showing in Quick grid</p>
+
+@if (covidlogs == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <div class="page-size-chooser">
+        Items per page:
+        <select @bind="@pagination.ItemsPerPage">
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+        </select>
+    </div>
+
+    <div class="grid">
+        <QuickGrid Items="@covidlogs.AsQueryable()" Pagination="@pagination">
+        <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.Covidlogmsg)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.CreatedDate)" Format="yyyy-MM-dd" Sortable="true" />
+</QuickGrid>
+</div>
+
+    <div class="page-buttons">
+        Page:
+        @if (pagination.TotalItemCount.HasValue)
+        {
+            for (var pageIndex = 0; pageIndex <= pagination.LastPageIndex; pageIndex++)
+            {
+                var capturedIndex = pageIndex;
+                <button @onclick="@(() => GoToPageAsync(capturedIndex))"
+                        class="@PageButtonClass(capturedIndex)"
+                        aria-current="@AriaCurrentValue(capturedIndex)"
+                        aria-label="Go to page @(pageIndex + 1)">
+                    @(pageIndex + 1)
+                </button>
+            }
+        }
+    </div>
+}
+
+@code {
+
+    PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
+
+    private List<CovidLog> covidlogs;
+
+    protected override void OnInitialized()
+    {
+        covidlogs = covidservice.GetcovidLogs();
+        pagination.TotalItemCountChanged += (sender, eventArgs) => StateHasChanged();
+
+    }
+
+    private async Task GoToPageAsync(int pageIndex)
+    {
+        await pagination.SetCurrentPageIndexAsync(pageIndex);
+    }
+
+    private string? PageButtonClass(int pageIndex)
+        => pagination.CurrentPageIndex == pageIndex ? "current" : null;
+
+    private string? AriaCurrentValue(int pageIndex)
+        => pagination.CurrentPageIndex == pageIndex ? "page" : null;
+}
