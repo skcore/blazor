@@ -1,5 +1,11 @@
 Welcome to Blazor!
 
+Blazor Case-Studies 
+https://gtcore.in/category/case-studies/blazor/ 
+
+Blazor Interview Questions & Tips
+https://gtcore.in/category/interview-questions/blazor-interview-questions/
+
 Blazor is a .NET frontend web framework that supports both server-side rendering and client interactivity in a single programming model:
 
 Create rich interactive UIs using C#.
