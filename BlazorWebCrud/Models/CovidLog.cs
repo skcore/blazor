@@ -6,9 +6,9 @@ namespace BlazorWebCrud.Models
     {
         public int Id { get; set; }
         [Required]
-        public  string Name { get; set; }
+        public  string? Name { get; set; }
         [Required]
-        public  string Covidlogmsg { get; set; }
+        public  string? Covidlogmsg { get; set; }
         public DateTime CreatedDate { get; private set; } = DateTime.Now;
     }
 }

@@ -5,11 +5,8 @@ namespace BlazorWebCrud.Repository
 {
     public interface ICovidRepository
     {
-        List<CovidLog> GetcovidLogs();
-        bool Savelogs(CovidLog log);
-
-        bool Deletelogs(int logId);
-
-
+        Task<List<CovidLog>> GetcovidLogs();
+        Task<bool> Savelogs(CovidLog log);
+        Task<bool> Deletelogs(int logId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BlazorWebCrud.Data;
 using BlazorWebCrud.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorWebCrud.Repository
 {
@@ -11,39 +12,53 @@ namespace BlazorWebCrud.Repository
             covidContext = _covidContext;
         }
 
-        public bool Deletelogs(int logId)
-        {
-            try
-            {
-                var covidlog = covidContext.CovidLogs.Find(logId);
-                covidContext.CovidLogs.Remove(covidlog);
-                covidContext.SaveChanges();
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        public List<CovidLog> GetcovidLogs()
-        {
-            return covidContext.CovidLogs.ToList();
-        }
-
-        public bool Savelogs(CovidLog log)
+        public async Task<bool> Savelogs(CovidLog log)
         {
             try
             {
                 covidContext.CovidLogs.Add(log);
-                covidContext.SaveChanges();
+                await covidContext.SaveChangesAsync();
 
                 return true;
             }
-            catch(Exception e)
+            catch
             {
                 return false;
+            }
+        }
+
+        public async Task<bool> Deletelogs(int logId)
+        {
+            try
+            {
+                var covidlog = await covidContext.CovidLogs.FindAsync(logId);
+                if (covidlog != null)
+                {
+                    covidContext.CovidLogs.Remove(covidlog);
+                    await covidContext.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<CovidLog>> GetcovidLogs()
+        {
+            try
+            {
+                return await covidContext.CovidLogs.ToListAsync();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
     }

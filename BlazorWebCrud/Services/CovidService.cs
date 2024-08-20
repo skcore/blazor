@@ -12,19 +12,19 @@ namespace BlazorServerCrud.Services
             this.covidRepository = covidRepository;
         }
 
-        public bool Deletelogs(int logId)
+        public async Task<bool> Deletelogs(int logId)
         {
-          return covidRepository.Deletelogs(logId);
+            return await covidRepository.Deletelogs(logId);
         }
 
-        public List<CovidLog> GetcovidLogs()
+        public async Task<IEnumerable<CovidLog>> GetcovidLogs()
         {
-            return covidRepository.GetcovidLogs();
+            return await covidRepository.GetcovidLogs();
         }
 
-        public bool Savelogs(CovidLog log)
+        public async Task<bool> Savelogs(CovidLog log)
         {
-            return covidRepository.Savelogs(log);
+            return await covidRepository.Savelogs(log);
         }
     }
 }

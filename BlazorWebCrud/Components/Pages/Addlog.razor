@@ -31,13 +31,14 @@
 </div>
 
 @code {
+
     CovidLog covidLog { get; set; } = new CovidLog();
 
     string msg = string.Empty;
 
-    void Savelogs()
+    async Task Savelogs()
     {
-        if (covidService.Savelogs(covidLog))
+        if (await covidService.Savelogs(covidLog))
             msg = "Logs saved successfully";
         else
             msg = "Something went wrong !!";

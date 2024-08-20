@@ -4,10 +4,10 @@ namespace BlazorWebCrud.Services
 {
     public interface ICovidService
     {
-        List<CovidLog> GetcovidLogs();
+        Task <IEnumerable<CovidLog>> GetcovidLogs();
 
-        bool Savelogs(CovidLog log);
+        Task<bool> Savelogs(CovidLog log);
 
-        bool Deletelogs(int logId);
+        Task<bool> Deletelogs(int logId);
     }
 }

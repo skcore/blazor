@@ -112,11 +112,11 @@ else
 
     PaginationState pagination = new PaginationState { ItemsPerPage = 20 };
 
-    private List<CovidLog> covidlogs;
+    private IEnumerable<CovidLog>? covidlogs;
 
-    protected override void OnInitialized()
+    protected async override void OnInitialized()
     {
-        covidlogs = covidservice.GetcovidLogs();
+        covidlogs = await covidservice.GetcovidLogs();
         pagination.TotalItemCountChanged += (sender, eventArgs) => StateHasChanged();
 
     }
